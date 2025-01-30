@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Aeonid Colossus - Mythic Construct</title>
+<style>
+:root {
+  --parchment: #f5e6c8;
+  --blood-red: #941a1d;
+  --ink-black: #4d3829;
+  --gold: #c5a572;
+  --shadow: rgba(0,0,0,0.2);
+}
+
+body {
+  background: #2c1e15;
+  color: #333;
+  font-family: 'Book Antiqua', Palatino, serif;
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.tribute-container {
+  max-width: 800px;
+  margin: 20px auto;
+  background: var(--parchment);
+  padding: 40px;
+  border: 3px solid var(--ink-black);
+  box-shadow: 0 0 20px var(--shadow);
+  position: relative;
+}
+
+.tribute-container::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid var(--gold);
+  pointer-events: none;
+}
+
+.hero-image-container {
+  margin: -40px -40px 30px -40px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 3px solid var(--ink-black);
+}
+
+.hero-image {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+  max-height: 600px; 
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(44, 30, 21, 0.8));
+  padding: 20px;
+  color: var(--parchment);
+  text-align: center;
+}
+
+.image-caption {
+  font-style: italic;
+  font-size: 0.9em;
+  color: var(--parchment);
+  opacity: 0.9;
+  margin: 0;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-title {
+  color: var(--blood-red);
+  font-size: 3em;
+  margin: 0;
+  text-shadow: 2px 2px 2px var(--shadow);
+  font-variant: small-caps;
+}
+
+.subtitle {
+  color: var(--ink-black);
+  font-style: italic;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.lore-section {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.section-title {
+  color: var(--blood-red);
+  font-variant: small-caps;
+  border-bottom: 2px solid var(--blood-red);
+  font-size: 1.8em;
+  margin: 30px 0 15px;
+  padding-bottom: 5px;
+}
+
+.lore-text {
+  text-align: justify;
+  column-count: 2;
+  column-gap: 40px;
+  margin-bottom: 20px;
+}
+
+.relic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.relic-card {
+  background: #e8d8bc;
+  padding: 20px;
+  border: 1px solid var(--ink-black);
+  border-radius: 3px;
+  box-shadow: 3px 3px 6px var(--shadow);
+  transition: transform 0.2s;
+}
+
+.relic-card:hover {
+  transform: translateY(-5px);
+}
+
+.relic-card h3 {
+  color: var(--blood-red);
+  margin-top: 0;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 5px;
+}
+
+.statblock {
+  background: #f0e4cb;
+  border: 2px solid var(--ink-black);
+  padding: 25px;
+  margin-top: 40px;
+  box-shadow: 0 0 15px var(--shadow);
+  position: relative;
+}
+
+.stat-header {
+  border-bottom: 2px solid var(--blood-red);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.stat-title {
+  color: var(--blood-red);
+  font-variant: small-caps;
+  font-size: 1.8em;
+  margin: 0;
+}
+
+.stat-subtitle {
+  color: var(--ink-black);
+  font-style: italic;
+  margin: 5px 0;
+}
+
+.ability-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  text-align: center;
+  margin: 20px 0;
+  padding: 15px;
+  background: #e0d0b4;
+  border-radius: 5px;
+}
+
+.ability-box {
+  background: var(--parchment);
+  padding: 10px;
+  border: 1px solid var(--ink-black);
+  border-radius: 3px;
+}
+
+.combat-tactics {
+  background: #e0d0b4;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+.tactics-title {
+  color: var(--blood-red);
+  font-variant: small-caps;
+  margin-top: 0;
+}
+
+.property-line {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  margin: 5px 0;
+}
+
+.property-label {
+  font-weight: bold;
+  color: var(--ink-black);
+}
+
+.vulnerability-note {
+  background: var(--ink-black);
+  color: white;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.divine-quote {
+  font-style: italic;
+  color: var(--blood-red);
+  text-align: center;
+  padding: 20px;
+  margin: 20px 0;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+}
+
+.trait, .action {
+  margin: 10px 0;
+  padding-left: 15px;
+  text-indent: -15px;
+}
+
+.trait-name, .action-name {
+  font-weight: bold;
+  color: var(--ink-black);
+}
+
+@media (max-width: 768px) {
+  .lore-text {
+    column-count: 1;
+  }
+  
+  .ability-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .tribute-container {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .hero-image-container {
+    margin: -20px -20px 20px -20px;
+  }
+.hero-image {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ability-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .property-line {
+    grid-template-columns: 1fr;
+  }
+  
+.hero-image {
+    max-height: 300px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="tribute-container">
+  <div class="hero-image-container">
+    <img 
+      src="https://i.imgur.com/FA5Bv3k.jpg" 
+      alt="The Aeonid Colossus" 
+      class="hero-image"
+    />
+    <div class="image-overlay">
+    </div>
+  </div>
+
+  <div class="header-section">
+    <h1 class="main-title">Aeonid Colossus</h1>
+    <p class="subtitle">"Hero-Breaker"</p>
+  </div>
+
+  <div class="lore-section">
+    <h2 class="section-title">Origin</h2>
+    <div class="lore-text">
+      <p style = "margin-top: 0">Forged by Hephaestus himself using the essence of fallen heroes, this construct is both a guardian and memorial to the golden-age heroes.</p>
+      <p>Its eyes gleam with the wisdom of Odysseus, its arms bear the strength of Heracles, and its heart burns with the divine flame of Prometheus.</p>
+    </div>
+  </div>
+
+  <div class="lore-section">
+    <h2 class="section-title">Divine Origin</h2>
+    <p>The Colossus draws its power from these sacred artifacts:</p>
+    
+    <div class="relic-grid">
+      <div class="relic-card">
+        <h3>Nemean Pelt</h3>
+        <p>Torn from the mighty Nemean Lion by Heracles himself, this golden fur renders the Colossus nearly invulnerable to mortal weapons.</p>
+        <p>◼ Base AC 19<br>
+        ◼ Can be torn off (AC 23, 50 HP)<br>
+        ◼ Removed: AC becomes 16<br>
+        ◼ Loses physical damage resistance</p>
+      </div>
+      <div class="relic-card">
+        <h3>Winged Sandals</h3>
+        <p>The same sandals that carried Perseus to victory against Medusa now grant the Colossus mastery over the skies.</p>
+        <p>◼ 60ft flying speed<br>
+        ◼ Destroyable (AC 23, 50 HP)<br>
+        ◼ Removal disables flight actions</p>
+      </div>
+      <div class="relic-card">
+        <h3>Heroic Weapons</h3>
+        <p>Each weapon carries the essence of its original wielder, from Perseus's sword to Odysseus's bow.</p>
+        <p>◼ Destroy weapons (AC 23, 50 HP each)<br>
+        ◼ Each destroyed: -2 to attack rolls<br>
+        ◼ Lose special attack properties</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="combat-tactics">
+    <h3 class="tactics-title">Tactical Overview</h3>
+    <p>The Colossus employs different strategies based on its opponents:</p>
+    <ul>
+      <li><strong>Against Melee Fighters:</strong> Uses flight to maintain distance while pelting with arrows</li>
+      <li><strong>Against Spellcasters:</strong> Closes distance rapidly using Winged Ascent, focuses on disrupting concentration</li>
+      <li><strong>When Surrounded:</strong> Employs Hero's Legacy in cone formation, follows with Labor of Heracles</li>
+    </ul>
+  </div>
+
+  <div class="divine-quote">
+    "Its footsteps echo with the might of Olympus."
+    <br>- Inscription on the Colossus's soles
+  </div>
+
+  <div class="statblock">
+    <div class="stat-header">
+      <h1 class="stat-title">Aeonid Colossus</h1>
+      <p class="stat-subtitle">Gargantuan construct, lawful neutral</p>
+    </div>
+
+    <div class="property-line">
+      <span class="property-label">Armor Class</span>
+      <span>19 (Nemean Pelt)</span>
+    </div>
+    <div class="property-line">
+      <span class="property-label">Hit Points</span>
+      <span>350 (20d20 + 140)</span>
+    </div>
+    <div class="property-line">
+      <span class="property-label">Speed</span>
+      <span>50 ft., fly 60 ft.</span>
+    </div>
+
+    <div class="ability-grid">
+      <div class="ability-box">
+        <strong>STR</strong><br>26 (+8)
+      </div>
+      <div class="ability-box">
+        <strong>DEX</strong><br>18 (+4)
+      </div>
+      <div class="ability-box">
+        <strong>CON</strong><br>24 (+7)
+      </div>
+      <div class="ability-box">
+        <strong>INT</strong><br>14 (+2)
+      </div>
+      <div class="ability-box">
+        <strong>WIS</strong><br>16 (+3)
+      </div>
+      <div class="ability-box">
+        <strong>CHA</strong><br>12 (+1)
+      </div>
+    </div>
+
+    <div class="property-line">
+      <span class="property-label">Saving Throws</span>
+      <span>Str +14, Con +13, Wis +9</span>
+    </div>
+    <div class="property-line">
+      <span class="property-label">Damage Immunities</span>
+      <span>Poison, Psychic; Nonmagical B/P/S</span>
+    </div>
+    <div class="property-line">
+      <span class="property-label">Condition Immunities</span>
+      <span>Charmed, Exhaustion, Frightened, Paralyzed, Petrified, Poisoned</span>
+    </div>
+    <div class="property-line">
+      <span class="property-label">Senses</span>
+      <span>Truesight 120 ft., Passive Perception 19</span>
+    </div>
+    <div class="property-line">
+      <span class="property-label">Languages</span>
+      <span>Understands Ancient Greek, Common</span>
+    </div>
+    <div class="property-line">
+      <span class="property-label">Challenge</span>
+      <span>20 (25,000 XP)</span>
+    </div>
+
+    <div class="trait">
+      <strong class="trait-name">Amalgam of Heroes.</strong> The colossus is immune to effects that would reduce its speed, immobilize specific body parts, or cause limb-specific penalties. Disarming attacks fail automatically.
+    </div>
+
+    <div class="trait">
+      <strong class="trait-name">Divine Ichor.</strong> At the start of each turn, the colossus regains 20 hit points unless it has taken lightning damage since its last turn.
+    </div>
+
+    <div class="trait">
+      <strong class="trait-name">Golden Apple of Discord (1/Day).</strong> As an action, the colossus can target one creature within 60 feet. The target must succeed on a DC 17 Wisdom saving throw or be compelled to attack the nearest creature for 1 minute. The target can repeat the saving throw at the end of each of its turns.
+    </div>
+
+    <h3>Actions</h3>
+    <div class="action">
+      <strong class="action-name">Multiattack.</strong> The colossus makes three weapon attacks.
+    </div>
+    <div class="action">
+      <strong class="action-name">Sword of Perseus.</strong> Melee Weapon Attack: +14 to hit, reach 15 ft., one target. Hit: 3d8 + 8 slashing damage. On a critical hit, the target must succeed on a DC 22 Constitution saving throw or be petrified.
+    </div>
+    <div class="action">
+      <strong class="action-name">Bow of Odysseus.</strong> Ranged Weapon Attack: +12 to hit, range 150/600 ft., one target. Hit: 2d8 + 4 piercing damage. This attack ignores half and three-quarters cover.
+    </div>
+    <div class="action">
+      <strong class="action-name">Hero's Legacy (Recharge 5-6).</strong> The colossus channels the power of ancient heroes, choosing one of the following effects:
+      <br>• Acid Breath: The colossus exhales acid in a 60-foot cone. Each creature in that area must make a DC 19 Dexterity saving throw, taking 8d8 acid damage on a failed save, or half as much damage on a successful one.
+      <br>• Arrow Storm: The colossus fires six arrows at up to six targets within 600 feet. Each target must make a DC 19 Dexterity saving throw, taking 2d8 + 4 piercing damage on a failed save, or half as much damage on a successful one.
+    </div>
+
+    <h3>Legendary Actions (3/Round)</h3>
+    <div class="action">
+      <strong class="action-name">Winged Ascent.</strong> The colossus flies up to 60 feet without provoking opportunity attacks.
+    </div>
+    <div class="action">
+      <strong class="action-name">Labor of Heracles (Costs 2 Actions).</strong> The colossus chooses one of the following effects:
+      <br>• Charging Strike: The colossus moves up to its speed in a straight line and makes one melee attack. If the attack hits, it deals an extra 4d10 damage.
+      <br>• Ground Slam: Each creature within 15 feet must succeed on a DC 19 Strength saving throw or take 4d10 + 8 bludgeoning damage and be knocked prone.
+    </div>
+
+    <div class="vulnerability-note">
+      ⚡ Lightning Vulnerability: The colossus takes 50% more damage from lightning effects and must succeed on a Constitution saving throw or be stunned until the end of its next turn whenever it takes lightning damage.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
